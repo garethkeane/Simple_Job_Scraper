@@ -1,0 +1,61 @@
+#!/usr/bin/env perl -w
+
+### For June page dumped from https://jobs.lever.co/junelife/
+
+use strict;
+use warnings;
+
+print "\n*************************\n*\tHello...\n";
+print"*\tTrying Job Parse for June\n*************************\n";
+
+# Setup some variables!
+my $filename_counter = 0;
+my $job_count = 0;
+
+# Open data file - hardcoded right now
+
+open (SOURCE, "<", "/Users/gareth/Downloads/june_jobs.htm") || die "Can't open file \"june_jobs.htm\"\n";
+open (OUTPUT, ">", "Output_Files/june_jobs.txt");
+
+while (<SOURCE>) {
+	my $input = $_;
+	my @array = split(" ", $input);
+	#print "Array size: $#array\n";
+	#print "Filename: $array[0]\n";
+
+	#my $input_filename = $array[0];
+	#open (INPUT, "<", $input_filename);
+	my $line;
+	my $element;
+	my @array2;
+	my @array3;
+	#my $job_count = 0;
+	@array2 = split("div><a class=\"posting-title\" ", $input);
+	for ($element = 1; $element < $#array2+1; $element++) {
+		#print "$array2[$element]\n";
+		@array3 = split("h5", $array2[$element]);
+		my $job = $array3[1];
+		my $job_url = $array3[0];
+		$job_url =~ s/\>\<//g;
+		$job_url =~ s/href\=\"//;
+		$job_url =~ s/\"//;
+		$job =~ s/^.*\>//g;
+		$job =~ s/\<\///g;
+		#print "$job, $job_url\n";
+		# Need to pull out location
+		my @array4;
+		my @array5;
+		@array4 = split("small-category-label\">", $array3[2]);
+		@array5 = split("</span>", $array4[1]);
+		my $location = $array5[0];
+		#print OUTPUT "$job_count $job, $location, $job_url\n"; #location might be hard for later - maybe revisit?
+		print OUTPUT "$job_count ### $job ### $job_url\n";
+		$job_count++;
+		}
+	
+	#$job_count = $element-1;	
+	}
+print "Number of jobs: $job_count\n\n";
+close (SOURCE);
+close (OUTPUT);
+exit;
