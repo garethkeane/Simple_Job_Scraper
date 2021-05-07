@@ -1,0 +1,85 @@
+#!/bin/sh
+
+set -e
+
+./job_page_parser_ambition.prl
+sleep 1
+./job_page_parser_angellist.prl
+sleep 1
+./job_page_parser_audiodraft.prl		
+sleep 1
+./job_page_parser_behavox.prl
+sleep 1
+./job_page_parser_bellabeat.prl
+sleep 1
+./job_page_parser_cape.prl
+sleep 1
+./job_page_parser_cobalt.prl
+sleep 1
+./job_page_parser_crosslend.prl
+sleep 1
+./job_page_parser_dark.prl
+sleep 1
+./job_page_parser_deako.prl
+sleep 1
+#./job_page_parser_dispatch.prl
+#sleep 1
+./job_page_parser_enview.prl
+sleep 1
+#./job_page_parser_figureeight.prl
+#sleep 1
+./job_page_parser_firstopinion.prl
+sleep 1
+./job_page_parser_gauss.prl
+sleep 1
+./job_page_parser_gigster.prl
+sleep 1
+./job_page_parser_halter.prl
+sleep 1
+./job_page_parser_huckleberry.prl
+sleep 1
+./job_page_parser_iceye.prl
+sleep 1
+./job_page_parser_june.prl
+sleep 1
+#./job_page_parser_kahuna.prl
+#sleep 1
+./job_page_parser_kurbo.prl
+sleep 1
+./job_page_parser_layer.prl
+sleep 1
+./job_page_parser_mapbox.prl
+sleep 1
+./job_page_parser_marble.prl
+sleep 1
+./job_page_parser_merlon.prl
+sleep 1
+./job_page_parser_prism.prl
+sleep 1
+./job_page_parser_rezi.prl
+sleep 1
+./job_page_parser_rhombus.prl
+sleep 1
+./job_page_parser_rocketlab.prl
+sleep 1
+./job_page_parser_sonia.prl
+sleep 1
+./job_page_parser_spire.prl
+sleep 1
+./job_page_parser_statmuse.prl
+sleep 1
+./job_page_parser_swift.prl
+sleep 1
+./job_page_parser_terravion.prl
+sleep 1
+./job_page_parser_threadloom.prl
+sleep 1
+./job_page_parser_truefit.prl
+sleep 1
+./job_page_parser_tulip.prl
+sleep 1
+./job_page_parser_whoop.prl
+sleep 1
+./job_page_parser_yourmechanic.prl
+
+./collate_job_reports.prl
