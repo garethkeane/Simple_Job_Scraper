@@ -1,0 +1,156 @@
+#!/usr/bin/env perl -w
+
+### Build one big job list for every Promus Ventures company listed on the PV website here: http://www.promusventures.com/#community
+
+use strict;
+use warnings;
+use English;
+
+print "\n*************************\n";
+print"*\tBuilding master job list\n*************************\n";
+
+# Setup some variables!
+my $current_filename;
+my $total_job_count = 0;
+my $filecount = 0;
+
+# Open one big output file!
+open ("OUTPUT_TEXT", ">", "total_job_report.txt") or die "Can not open \"total_job_report.txt\" for write: $OS_ERROR\n";
+open ("OUTPUT_HTML", ">", "PV_job_board.html") or die "Can not open \"PV_job_board.html\" for write: $OS_ERROR\n";
+
+print OUTPUT_HTML "<html><head>PV Job Board</head><body>\n";
+
+# Open all the .txt job data files in the ./Output_Files directory 
+
+my $job_report_file_directory = "./Output_Files";
+foreach my $filename (glob("$job_report_file_directory/*.txt")) {
+	#printf "%s\n", $filename;
+	my $company_job_count = 0;
+	my $current_company;
+	my @array2 = split(/\//, $filename);
+	$current_company = $array2[2];
+	$current_company =~ s/\.txt$//;
+	$current_company =~ s/_jobs$//;
+	$current_company = join '', map { ucfirst lc $_ } split /(\s+)/, $current_company;
+	if ($current_company eq "Angellist") {
+		print "Replacing Angellist with AngelList\n";
+		$current_company = "AngelList (HQ: San Francisco)";
+		}
+	if ($current_company eq "Cobalt_robotics") {
+		$current_company = "Cobalt Robotics (HQ: Palo Alto)";
+		}
+	if ($current_company eq "Ambition") {
+		$current_company = join "", $current_company, " (HQ: Chattanooga)";
+		}
+	if ($current_company eq "Audiodraft") {
+		$current_company = join "", $current_company, " (HQ: Helsinki, Finland)";
+		}
+	if ($current_company eq "Behavox") {
+		$current_company = join "", $current_company, " (HQ: London)";
+		}
+	if ($current_company eq "Bellabeat") {
+		$current_company = join "", $current_company, " (HQ: San Francisco)";
+		}
+	if ($current_company eq "Cape") {
+		$current_company = join "", $current_company, "Analytics (HQ: Mountain View)";
+		}
+	if ($current_company eq "Crosslend") {
+		$current_company = join "", $current_company, " (HQ: Berlin)";
+		}
+	if ($current_company eq "Dark") {
+		$current_company = join "", $current_company, " (HQ: San Francisco)";
+		}
+	if ($current_company eq "Deako") {
+		$current_company = join "", $current_company, " (HQ: Seattle)";
+		}
+	if ($current_company eq "Dispatch") {
+		$current_company = join "", $current_company, " (HQ: Boston)";
+		}
+	if ($current_company eq "Enview") {
+		$current_company = join "", $current_company, " (HQ: San Francisco)";
+		}
+	if ($current_company eq "Figureeight") {
+		$current_company = "Figure Eight (HQ: San Francisco)";
+		}
+	if ($current_company eq "Gauss Surgical") {
+		$current_company = join "", $current_company, " (HQ: Los Altos)";
+		}
+	if ($current_company eq "Gigster") {
+		$current_company = join "", $current_company, " (HQ: San Francisco)";
+		}
+	if ($current_company eq "Halter") {
+		$current_company = join "", $current_company, " (HQ: Auckland, NZ)";
+		}
+	if ($current_company eq "Huckleberry") {
+		$current_company = join "", $current_company, " (HQ: San Francisco)";
+		}
+	if ($current_company eq "Iceye") {
+		$current_company = "ICEYE (HQ: Helsinki, Finland)";
+		}
+	if ($current_company eq "June") {
+		$current_company = join "", $current_company, " (HQ: San Francisco)";
+		}
+	if ($current_company eq "Kahuna") {
+		$current_company = join "", $current_company, " (HQ: Redwood City)";
+		}
+	if ($current_company eq "Kurbo") {
+		$current_company = join "", $current_company, " (HQ: Palo Alto)";
+		}
+	if ($current_company eq "Mapbox") {
+		$current_company = join "", $current_company, " (HQ: San Francisco)";
+		}
+	if ($current_company eq "Marble") {
+		$current_company = join "", $current_company, " (HQ: San Francisco)";
+		}
+	if ($current_company eq "Rocketlab") {
+		$current_company = "Rocket Lab (HQ: Los Angeles and Auckland, NZ)";
+		}
+	if ($current_company eq "Sonia") {
+		$current_company = join "", $current_company, " (HQ: San Francisco)";
+		}
+	if ($current_company eq "Spire") {
+		$current_company = join "", $current_company, " (HQ: San Francisco)";
+		}
+	if ($current_company eq "Swift") {
+		$current_company = "Swift Navigation (HQ: San Francisco)";
+		}
+	if ($current_company eq "Terravion") {
+		$current_company = join "", $current_company, " (HQ: San Francisco)";
+		}
+	if ($current_company eq "Threadloom") {
+		$current_company = join "", $current_company, " (HQ: Palo Alto)";
+		}
+	if ($current_company eq "Truefit") {
+		$current_company = join "", $current_company, " (HQ: Boston)";
+		}
+	if ($current_company eq "Tulip") {
+		$current_company = join "", $current_company, " (HQ: Toronto)";
+		}
+	if ($current_company eq "Whoop") {
+		$current_company = join "", $current_company, " (HQ: Boston)";
+		}
+	if ($current_company eq "Yourmechanic") {
+		$current_company = "YourMechanic (HQ: Mountain View)";
+		}
+	print OUTPUT_HTML "<h3>$current_company</h3><p></p>\n";
+	$filecount++;
+	open $current_filename, "<", $filename or die "Can not open \"$filename\" for read: $OS_ERROR\n";
+	while (<$current_filename>) {
+		my @array = split(/###/, $_);
+		print OUTPUT_TEXT "$array[1]\t$array[2]\n";
+		print OUTPUT_HTML "<a href=\"$array[2]\">$array[1]</a>\n<p></p>";
+		$total_job_count++;
+		$company_job_count++;
+		}
+	close($current_filename);
+	print "$current_company: $company_job_count jobs...\n";
+	}
+
+print OUTPUT_HTML "</body></html>\n";
+
+close (OUTPUT_TEXT);
+close (OUTPUT_HTML);
+
+print "Total PV portfolio company jobs collected: $total_job_count\n";
+
+exit;
